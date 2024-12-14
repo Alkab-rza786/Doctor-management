@@ -1,0 +1,10 @@
+
+.hiden{
+  display: none ;
+}
+
+@media (max-width:934px) {
+   .hide{
+      display: none;
+   }
+}
