@@ -37,6 +37,7 @@ function Login() {
             if(data.success){
                 localStorage.setItem('token',data.token)
                 setToken(data.token)
+                navigate('/')
             }else{
                 toast.error(data.message)
             }
