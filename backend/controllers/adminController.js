@@ -5,6 +5,8 @@ import { v2 as cloudinay } from 'cloudinary'
 import doctorModel from "../models/doctorModels.js";
 import jwt from 'jsonwebtoken'
 import appointmentModel from "../models/appointmentModel.js";
+import userModel from "../models/userModels.js";
+
 
 // Api for Adding doctor
 
@@ -115,35 +117,58 @@ const appointmentsAdmin = async (req,res) => {
 
 // Api for appointment cancel appointment
 
-// const appointmentCancel = async (req, res) => {
-//     try {
+const appointmentCancel = async (req, res) => {
+    try {
 
-//         const { appointmentId } = req.body
+        const { appointmentId } = req.body
 
-//         const appointmentData = await appointmentModel.findById(appointmentId)
-
-
-//         await appointmentModel.findByIdAndUpdate(appointmentId, { cancelled: true })
-
-//         // releasing doctor slot
-
-//         const { docId, slotDate, slotTime } = appointmentData
-
-//         const doctorData = await doctorModel.findById(docId)
-
-//         let slots_booked = doctorData.slots_booked
-
-//         slots_booked[slotDate] = slots_booked[slotDate].filter(e => e !== slotTime)
-
-//         await doctorModel.findByIdAndUpdate(docId, { slots_booked })
-
-//         res.json({ success: true, message: 'Appointment cancelled' })
+        const appointmentData = await appointmentModel.findById(appointmentId)
 
 
-//     } catch (error) {
-//         console.log(error);
-//         res.json({ success: false, message: error.message });
-//     }
-// }
+        await appointmentModel.findByIdAndUpdate(appointmentId, { cancelled: true })
 
-export { addDoctor ,loginAdmin,allDoctors,appointmentsAdmin}
+        // releasing doctor slot
+
+        const { docId, slotDate, slotTime } = appointmentData
+
+        const doctorData = await doctorModel.findById(docId)
+
+        let slots_booked = doctorData.slots_booked
+
+        slots_booked[slotDate] = slots_booked[slotDate].filter(e => e !== slotTime)
+
+        await doctorModel.findByIdAndUpdate(docId, { slots_booked })
+
+        res.json({ success: true, message: 'Appointment cancelled' })
+
+
+    } catch (error) {
+        console.log(error);
+        res.json({ success: false, message: error.message });
+    }
+}
+
+// Api to get dashboard  data for admin paner
+
+const adminDashboard = async (req,res) => {
+    try {
+        const doctors = await doctorModel.find({})
+        const users = await userModel.find({})
+        const appointment = await appointmentModel.find({})
+
+        const dashData = {
+            doctors:doctors.length,
+            appointments: appointment.length,
+            patients:users.length,
+            latestAppointment:appointment.reverse().slice(0,5)
+        }
+
+        res.json({success:true,dashData})
+        
+    } catch (error) {
+        console.log(error);
+        res.json({ success: false, message: error.message });
+    }
+}
+
+export { addDoctor ,loginAdmin,allDoctors,appointmentsAdmin,appointmentCancel,adminDashboard}

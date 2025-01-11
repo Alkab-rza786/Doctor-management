@@ -1,6 +1,8 @@
 import React, { useContext, useEffect } from 'react'
 import { AdminContext } from '../../context/AdminContext'
 import { AppContext } from '../../context/AppContext'
+import { assets } from '../../assets/assets_admin/assets'
+
 
 function Appointment() {
 
@@ -44,7 +46,7 @@ function Appointment() {
                {
                 item.cancelled
                 ? <p className='text-red-500 text-xs font-medium'>Cancelled</p>
-                : <img  className='w-10 cursor-pointer' src={assets.cancel_icon} alt="" />
+                : <img onClick={()=>cancelAppointment(item._id)} className='w-10 cursor-pointer' src={assets.cancel_icon} alt="" />
                }
               
              </div>
@@ -54,7 +56,5 @@ function Appointment() {
     </div>
   )
 }
-import { assets } from '../../assets/assets_admin/assets'
-import { cancelAppointment } from '../../../../backend/controllers/userControllers'
 
 export default Appointment
