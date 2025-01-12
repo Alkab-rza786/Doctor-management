@@ -7,7 +7,7 @@ export const DoctorContext = createContext()
 
 const DoctorContextProvider = (props)=>{
 
-    const backendUrl = import.meta.VITE_BACKEND_URL
+    const backendUrl = import.meta.env.VITE_BACKEND_URL
 
     const [dToken,setDToken] = useState(localStorage.getItem('dToken')?localStorage.getItem('dToken'):'')
     const [appointments,setAppointments] = useState([])
@@ -17,7 +17,7 @@ const DoctorContextProvider = (props)=>{
     const getAppointments = async () => {
         try {
             // console.log("function is calling")
-            const {data} = await axios.get('http://localhost:4000/api/doctor/appointments',{headers:{dToken}})
+            const {data} = await axios.get(backendUrl+'/api/doctor/appointments',{headers:{dToken}})
 
             if(data.success){
                 setAppointments(data.appointments.reverse())
@@ -37,7 +37,7 @@ const DoctorContextProvider = (props)=>{
 
         try {
 
-            const {data} = await axios.post('http://localhost:4000/api/doctor/appointmentComplete',{appointmentId},{headers:{dToken}})
+            const {data} = await axios.post(backendUrl+'/api/doctor/appointmentComplete',{appointmentId},{headers:{dToken}})
 
             if(data.success){
                 toast.success(data.message)
@@ -58,7 +58,7 @@ const DoctorContextProvider = (props)=>{
 
             console.log({appointmentId})
 
-            const {data} = await axios.post('http://localhost:4000/api/doctor/appointmentCancel',{appointmentId},{headers:{dToken}})
+            const {data} = await axios.post(backendUrl+'/api/doctor/appointmentCancel',{appointmentId},{headers:{dToken}})
 
             if(data.success){
                 toast.success(data.message)
@@ -79,7 +79,7 @@ const DoctorContextProvider = (props)=>{
         
         try {
 
-            const {data} = await axios.get('http://localhost:4000/api/doctor/dashboard',{headers:{dToken}})
+            const {data} = await axios.get(backendUrl+'/api/doctor/dashboard',{headers:{dToken}})
 
             if(data.success){
                 console.log("it is working")
@@ -99,7 +99,7 @@ const DoctorContextProvider = (props)=>{
         
         try {
 
-            const {data} = await axios.get('http://localhost:4000/api/doctor/doctorProfile',{headers:{dToken}})
+            const {data} = await axios.get(backendUrl+'/api/doctor/doctorProfile',{headers:{dToken}})
 
             if(data.success){
                 setProfileData(data.profileData)

@@ -6,7 +6,7 @@ import { toast } from 'react-toastify'
 
 function DoctorProfile() {
 
-  const { dToken, profileData, setProfileData, getProfileData } = useContext(DoctorContext)
+  const { dToken, profileData, setProfileData, getProfileData,backendUrl } = useContext(DoctorContext)
 
   const { currency, } = useContext(AppContext)
 
@@ -22,7 +22,7 @@ function DoctorProfile() {
         availabel: profileData.availabel
       }
 
-      const { data } = await axios.post('http://localhost:4000/api/doctor/updateProfile', updateData, { headers: { dToken } })
+      const { data } = await axios.post(backendUrl+'/api/doctor/updateProfile', updateData, { headers: { dToken } })
 
       if (data.success) {
         toast.success(data.message)
