@@ -15,11 +15,7 @@ connectCloudinary()
 
 // middleware
 app.use(express.json())
-app.use(cors({
-    origin: 'https://doctor-management-front.onrender.com', // Frontend origin
-    methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allowed HTTP methods
-    credentials: true // If you use cookies or authentication
-}));
+app.use(cors())
 
 
 
