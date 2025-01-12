@@ -31,7 +31,7 @@ function Appointment() {
         </div>
 
         {
-          appointments.map((item,i)=>(
+          appointments.reverse().map((item,i)=>(
              <div className='flex flex-wrap justify-between max-sm:gap-2 sm:grid sm:grid-cols-[0.5fr_3fr_1fr_3fr_3fr_1fr_1fr] items-center text-gray-500  py-3 px-6 border-b hover:bg-gray-50' key={i} >
                <p className='max-sm:hidden'>{i+1}</p>
                <div className='flex items-center gap-2'>
@@ -46,7 +46,9 @@ function Appointment() {
                {
                 item.cancelled
                 ? <p className='text-red-500 text-xs font-medium'>Cancelled</p>
-                : <img onClick={()=>cancelAppointment(item._id)} className='w-10 cursor-pointer' src={assets.cancel_icon} alt="" />
+                :item.isCompleted ?
+                  <p className='text-green-500 text-xs font-medium' >Completed</p>
+                :<img onClick={()=>cancelAppointment(item._id)} className='w-10 cursor-pointer' src={assets.cancel_icon} alt="" />
                }
               
              </div>
