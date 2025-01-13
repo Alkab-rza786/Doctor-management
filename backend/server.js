@@ -28,16 +28,18 @@ app.use(express.json())
 
 
 const corsOptions = {
-  origin: [
-    'https://doctor-management-admin.onrender.com', 
-    'https://doctor-management-front.onrender.com',
-  ],
-  methods: 'GET,POST,PUT,DELETE,OPTIONS',
-  allowedHeaders: ['Content-Type', 'Authorization', 'token'], // Add 'token' here
+  origin: 'https://doctor-management-front.onrender.com', // Your frontend URL
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'token'], // Add any custom headers you use
   credentials: true,
 };
 
 app.use(cors(corsOptions));
+
+// Handle preflight requests
+app.options('*', cors(corsOptions));
+
+// app.use(cors(corsOptions));
 
 
 
