@@ -17,13 +17,14 @@ connectCloudinary()
 app.use(express.json())
 const corsOptions = {
     origin: [
-      'https://doctor-management-admin.onrender.com', // Allow the first frontend domain
-      'https://doctor-management-front.onrender.com', // Add another frontend origin
+      'https://doctor-management-admin.onrender.com', 
+      'https://doctor-management-front.onrender.com', 
     ],
     methods: 'GET,POST,PUT,DELETE',
     allowedHeaders: 'Content-Type, Authorization',
   };
   
+app.use(cors(corsOptions))
 
 
 // api end point
