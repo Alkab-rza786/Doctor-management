@@ -15,16 +15,16 @@ connectCloudinary()
 
 // middleware
 app.use(express.json())
-const corsOptions = {
-    origin: [
-      'https://doctor-management-admin.onrender.com', 
-      'https://doctor-management-front.onrender.com', 
-    ],
-    methods: 'GET,POST,PUT,DELETE',
-    allowedHeaders: 'Content-Type, Authorization',
-  };
-  
-app.use(cors(corsOptions))
+// const corsOptions = {
+//     origin: [
+//       'https://doctor-management-admin.onrender.com', 
+//       'https://doctor-management-front.onrender.com', 
+//     ],
+//     methods: 'GET,POST,PUT,DELETE',
+//     allowedHeaders: 'Content-Type, Authorization',
+//   };
+
+app.use(cors())
 
 
 // api end point
@@ -35,10 +35,10 @@ app.use('/api/user', userRouter)
 
 
 app.get('/', (req, res) => {
-    res.send('Api Working great')
+  res.send('Api Working great')
 })
 
 
 app.listen(port, () => {
-    console.log("Server is Running at", port)
+  console.log("Server is Running at", port)
 })
