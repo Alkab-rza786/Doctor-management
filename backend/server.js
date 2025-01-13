@@ -24,7 +24,21 @@ app.use(express.json())
 //     allowedHeaders: 'Content-Type, Authorization',
 //   };
 
-app.use(cors())
+// app.use(cors())
+
+
+const corsOptions = {
+  origin: [
+    'https://doctor-management-admin.onrender.com', 
+    'https://doctor-management-front.onrender.com',
+  ],
+  methods: 'GET,POST,PUT,DELETE,OPTIONS',
+  allowedHeaders: ['Content-Type', 'Authorization', 'token'], // Add 'token' here
+  credentials: true,
+};
+
+app.use(cors(corsOptions));
+
 
 
 // api end point
