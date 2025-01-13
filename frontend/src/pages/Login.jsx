@@ -28,8 +28,10 @@ function Login() {
             if(data.success){
                 localStorage.setItem('token',data.token)
                 setToken(data.token)
+                console.log("success");
             }else{
                 toast.error(data.message)
+                console.log(" not success");
             }
           }else{
             const {data} = await axios.post(backendUrl+'/api/user/login',{email,password})
