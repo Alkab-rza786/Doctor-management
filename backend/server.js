@@ -20,7 +20,7 @@ app.use(express.json())
 
 const corsOptions = {
   
-  origin: ['https://doctor-management-landinpage.onrender.com', 'http://localhost:5174'], // Your frontend URL
+  origin: ['https://doctor-management-landinpage.onrender.com', 'https://doctor-management-adminpanel.onrender.com'], // Your frontend URL
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization', 'token','aToken','dToken'], 
   credentials: true,
