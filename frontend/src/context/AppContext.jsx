@@ -47,7 +47,13 @@ const AppContextProvider = (props) => {
 
     const loadUserProfileData = async () => {
         try {
-            const { data } = await axios.get('https://doctor-management-system-u5yl.onrender.com/api/user/getProfile', { headers: { token } })
+            axios.get('https://doctor-management-system-u5yl.onrender.com/api/user/getProfile', {
+                headers: {
+                    Authorization: 'Bearer <token>',
+                    'Content-Type': 'application/json',
+                },
+                withCredentials: true, // Important for sending cookies
+            });
             console.log(data)
             console.log("this is backened url " + backendUrl)
 
