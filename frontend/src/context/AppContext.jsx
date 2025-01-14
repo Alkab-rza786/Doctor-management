@@ -24,9 +24,13 @@ const AppContextProvider = (props) => {
             if (data.success) {
                 setDoctors(data.doctors)
                 console.log(data.doctors)
+                console.log("this is backened url " + backendUrl)
+
             } else {
                 toast.error(data.message)
                 console.log(data.message)
+                console.log("this is backened url " + backendUrl)
+
             }
         } catch (error) {
             console.log(error)
@@ -38,10 +42,16 @@ const AppContextProvider = (props) => {
         try {
             const { data } = await axios.get(backendUrl + '/api/user/getProfile', { headers: { token } })
             console.log(data)
+            console.log("this is backened url " + backendUrl)
+
             if (data.success) {
                 setUserData(data.userData)
+                console.log("this is backened url " + backendUrl)
+
             } else {
                 toast.error(data.message)
+                console.log("this is backened url " + backendUrl)
+
             }
         } catch (error) {
             console.log(error)
