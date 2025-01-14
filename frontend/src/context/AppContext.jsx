@@ -19,6 +19,7 @@ const AppContextProvider = (props)=>{
     const getDoctorData= async () => {
        try {
          const {data}= await axios.get(backendUrl+'/api/doctor/list')
+         console.log(data)
          if(data.success){
             setDoctors(data.doctors)
             console.log(data.doctors)
