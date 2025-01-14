@@ -1,45 +1,46 @@
 import { createContext, useEffect, useState } from "react";
 // import { doctors } from "../assets/assets_frontend/assets";
 import axios from 'axios'
-import { toast } from 'react-toastify'
+import {toast} from 'react-toastify'
 export const AppContext = createContext()
 
-const AppContextProvider = (props) => {
+const AppContextProvider = (props)=>{
 
 
     const currencySymbol = '$'
 
     const backendUrl = import.meta.env.VITE_BACKEND_URL
-    const [doctors, setDoctors] = useState([])
-    const [token, setToken] = useState(localStorage.getItem('token') ? localStorage.getItem('token') : false)
-    const [userData, setUserData] = useState(false)
+    const [doctors,setDoctors] = useState([])
+    const [token,setToken]= useState(localStorage.getItem('token')?localStorage.getItem('token'):false)
+    const [userData,setUserData] = useState(false)
 
+ 
 
-
-    const getDoctorData = async () => {
-        try {
-            const { data } = await axios.get(backendUrl + '/api/doctor/list')
-            console.log(data)
-            if (data.success) {
-                setDoctors(data.doctors)
-                console.log(data.doctors)
-            } else {
-                toast.error(data.message)
-                console.log(data.message)
-            }
-        } catch (error) {
-            console.log(error)
-            toast.error(error.message)
-        }
+    const getDoctorData= async () => {
+       try {
+         const {data}= await axios.get(backendUrl+'/api/doctor/list')
+         console.log(backendUrl)
+         console.log(data)
+         if(data.success){
+            setDoctors(data.doctors)
+            console.log(data.doctors)
+         }else{
+            toast.error(data.message)
+            console.log(data.message)
+         }
+       } catch (error) {
+        console.log(error)
+        toast.error(error.message)
+       } 
     }
 
     const loadUserProfileData = async () => {
         try {
-            const { data } = await axios.get('https://doctor-management-system-u5yl.onrender.com/api/user/getProfile', { headers: { token } })
+            const {data}= await axios.get(backendUrl+'/api/user/getProfile',{headers:{token}})
             console.log(data)
-            if (data.success) {
+            if(data.success){
                 setUserData(data.userData)
-            } else {
+            }else{
                 toast.error(data.message)
             }
         } catch (error) {
@@ -48,30 +49,30 @@ const AppContextProvider = (props) => {
         }
     }
 
-    useEffect(() => {
-        getDoctorData()
+    useEffect(()=>{
+     getDoctorData()
 
-    }, [])
+    },[])
 
-    useEffect(() => {
-        if (token) {
-            loadUserProfileData()
-        } else {
-            setUserData(false)
-        }
-    }, [token])
+    useEffect(()=>{
+       if(token){
+        loadUserProfileData()
+       }else{
+        setUserData(false)
+       }
+    },[token])
 
 
     const value = {
-        doctors, getDoctorData,
+        doctors,getDoctorData,
         currencySymbol,
-        token, setToken,
+        token,setToken,
         backendUrl,
-        userData, setUserData,
+        userData,setUserData,
         loadUserProfileData
-    }
+   }
 
-
+    
     return (
         <AppContext.Provider value={value}>
             {props.children}
