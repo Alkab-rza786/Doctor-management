@@ -18,7 +18,7 @@ const AppContextProvider = (props) => {
 
     const getDoctorData = async () => {
         try {
-            const { data } = await axios.get(backendUrl + '/api/doctor/list')
+            const { data } = await axios.get('https://doctor-management-system-u5yl.onrender.com/api/doctor/list')
             console.log("this is backened url " + backendUrl)
             console.log(data)
             if (data.success) {
@@ -40,7 +40,7 @@ const AppContextProvider = (props) => {
 
     const loadUserProfileData = async () => {
         try {
-            const { data } = await axios.get(backendUrl + '/api/user/getProfile', { headers: { token } })
+            const { data } = await axios.get('https://doctor-management-system-u5yl.onrender.com/api/user/getProfile', { headers: { token } })
             console.log(data)
             console.log("this is backened url " + backendUrl)
 
